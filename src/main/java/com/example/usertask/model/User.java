@@ -1,4 +1,4 @@
-package com.example.userTask.model;
+package com.example.usertask.model;
 
 import java.util.Date;
 import jakarta.persistence.*;
@@ -22,7 +22,6 @@ public class User {
 
     private String firstName;
 
-
     private String lastName;
 
     @Temporal(TemporalType.DATE)
@@ -43,23 +42,9 @@ public class User {
     public Date getDob() {
         return dob;
     }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public void setDob(Date dob) {
-        this.dob = dob;
-    }
 }
+
+
 
 
 

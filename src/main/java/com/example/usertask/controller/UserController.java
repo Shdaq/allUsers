@@ -1,9 +1,8 @@
-package com.example.userTask.controller;
+package com.example.usertask.controller;
 
-import com.example.userTask.model.User;
-import com.example.userTask.repository.UserRepo;
+import com.example.usertask.dto.UserDto;
+import com.example.usertask.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -11,20 +10,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 import java.util.List;
 
 @RestController
-public class userController {
+public class UserController {
     @Autowired
-    private UserRepo repo;
+    private UserService service;
 
-    @GetMapping("users")
-    public List<User> getAllUsers() {
-        return repo.findAll();
+    @GetMapping("/users")
+    public List<UserDto> getAllUsers() {
+        return service.getAllUsers();
 
     }
-    @GetMapping("/test")
-    public String test() {
-        long count = repo.count();
-        return "Users count in DB: " + count;
-    }
+
 
 }
 

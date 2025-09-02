@@ -1,9 +1,9 @@
-package com.example.userTask.repository;
+package com.example.usertask.repository;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.example.userTask.model.User;
+import com.example.usertask.model.User;
 
 @Repository
 public interface UserRepo extends JpaRepository<User, Integer> {

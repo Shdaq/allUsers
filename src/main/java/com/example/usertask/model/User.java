@@ -11,14 +11,12 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Getter
-@Setter
-@Table(name = "\"allusers\"")
+@Table(name = "\"all_users\"")
 public class User {
 
     @Id
-
-    private int userId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer userId;
 
     private String firstName;
 
@@ -27,24 +25,5 @@ public class User {
     @Temporal(TemporalType.DATE)
     private Date dob;
 
-    public int getUserId() {
-        return userId;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public Date getDob() {
-        return dob;
-    }
 }
-
-
-
-
 

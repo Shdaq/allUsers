@@ -5,6 +5,11 @@ import com.example.usertask.dto.UserDto;
 import java.util.List;
 
 public interface ServiceInterface {
-  public List<UserDto> getAllUsers();
+   List<UserDto> getAllUsers();
+   UserDto addUser(UserDto userDto);
 
+   UserDto getUserById(Integer userId);
+
+   UserDto updateUser(UserDto userDto,Integer userId);
+  
 }

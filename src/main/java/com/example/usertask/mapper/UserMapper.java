@@ -3,6 +3,8 @@ import com.example.usertask.dto.UserDto;
 import com.example.usertask.model.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
+
 
 
     @Mapper(componentModel = "spring")
@@ -11,6 +13,9 @@ import org.mapstruct.Mapping;
         UserDto mapToDto(User source);
 
         User mapToUser(UserDto source);
+
+        @Mapping(target = "userId", ignore = true)
+        void updateUser(UserDto userDto, @MappingTarget User matchedUser);
 
 
     }

@@ -1,9 +1,9 @@
 package com.example.usertask.service;
 
-import com.example.usertask.dto.UserDto;
-import com.example.usertask.model.User;
+import com.example.usertask.dto.UsersDto;
+import com.example.usertask.entity.UsersEntity;
 import com.example.usertask.mapper.UserMapper;
-import com.example.usertask.repository.UserRepo;
+import com.example.usertask.repository.UsersRepo;
 import org.springframework.stereotype.Service;
 import lombok.*;
 import java.util.List;
@@ -13,30 +13,30 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
-    private final UserRepo repo;
+    private final UsersRepo repo;
     private final UserMapper userMapper;
 
-    public List<UserDto> getAllUsers() {
+    public List<UsersDto> getAllUsers() {
         return repo.findAll()
                 .stream()
                 .map(userMapper::mapToDto)
                 .collect(Collectors.toList());
     }
 
-    public UserDto addUser(UserDto userDto){
-        User user=userMapper.mapToUser(userDto);
-        User saved=repo.save(user);
+    public UsersDto addUser(UsersDto userDto){
+        UsersEntity user=userMapper.mapToUser(userDto);
+        UsersEntity saved=repo.save(user);
         return userMapper.mapToDto(saved);
 
     }
-    public UserDto getUserById(Integer userId) {
-        User user= repo.findById(userId).orElseThrow(() -> new RuntimeException("User not found "));
+    public UsersDto getUserById(Integer userId) {
+        UsersEntity user= repo.findById(userId).orElseThrow(() -> new RuntimeException("User not found "));
         return userMapper.mapToDto(user);
 
     }
 
-    public UserDto updateUser(UserDto userDto,Integer userId) {
-        User matchedUser = repo.findById(userId).orElseThrow(() -> new RuntimeException("User not found "));
+    public UsersDto updateUser(UsersDto userDto, Integer userId) {
+        UsersEntity matchedUser = repo.findById(userId).orElseThrow(() -> new RuntimeException("User not found "));
         userMapper.updateUser(userDto, matchedUser);
         repo.save(matchedUser);
         return userMapper.mapToDto(matchedUser);

@@ -1,6 +1,6 @@
 package com.example.usertask.controller;
 
-import com.example.usertask.dto.UserDto;
+import com.example.usertask.dto.UsersDto;
 import com.example.usertask.service.UserServiceImpl;
 import org.springframework.web.bind.annotation.*;
 import lombok.*;
@@ -14,23 +14,23 @@ public class UserController {
     private final UserServiceImpl service;
 
     @GetMapping("/users")
-    public List<UserDto> getAllUsers() {
+    public List<UsersDto> getAllUsers() {
         return service.getAllUsers();
 
     }
     @PostMapping("/users")
-    public UserDto addUser(@RequestBody UserDto userDto) {
+    public UsersDto addUser(@RequestBody UsersDto userDto) {
         return service.addUser(userDto);
 
     }
     @GetMapping("/users/{userId}")
-    public UserDto getUserById(@PathVariable Integer userId){
+    public UsersDto getUserById(@PathVariable Integer userId){
         return service.getUserById(userId);
 
     }
 
     @PutMapping("/users/{userId}")
-    public UserDto updateUser(@RequestBody UserDto userDto,@PathVariable Integer userId){
+    public UsersDto updateUser(@RequestBody UsersDto userDto, @PathVariable Integer userId){
         return service.updateUser(userDto,userId);
     }
 

@@ -1,15 +1,15 @@
 package com.example.usertask.service;
 
-import com.example.usertask.dto.UserDto;
+import com.example.usertask.dto.UsersDto;
 
 import java.util.List;
 
 public interface UserService {
-   List<UserDto> getAllUsers();
-   UserDto addUser(UserDto userDto);
+   List<UsersDto> getAllUsers();
+   UsersDto addUser(UsersDto userDto);
 
-   UserDto getUserById(Integer userId);
+   UsersDto getUserById(Integer userId);
 
-   UserDto updateUser(UserDto userDto,Integer userId);
+   UsersDto updateUser(UsersDto userDto, Integer userId);
   
 }

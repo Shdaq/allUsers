@@ -13,7 +13,7 @@ public class RolesEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer role_id;
+    private Integer roleId;
 
     private String role;
 

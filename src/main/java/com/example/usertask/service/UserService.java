@@ -1,8 +1,10 @@
 package com.example.usertask.service;
 
+import com.example.usertask.dto.RolesDto;
 import com.example.usertask.dto.UsersDto;
 
 import java.util.List;
+import java.util.Set;
 
 public interface UserService {
    List<UsersDto> getAllUsers();
@@ -11,5 +13,6 @@ public interface UserService {
    UsersDto getUserById(Integer userId);
 
    UsersDto updateUser(UsersDto userDto, Integer userId);
-  
+   UsersDto addRoles(Set<String> roles, Integer userId);
+
 }

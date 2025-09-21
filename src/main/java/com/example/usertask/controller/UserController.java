@@ -1,5 +1,6 @@
 package com.example.usertask.controller;
 
+import com.example.usertask.dto.RolesDto;
 import com.example.usertask.dto.UsersDto;
 import com.example.usertask.service.UserServiceImpl;
 import org.springframework.web.bind.annotation.*;
@@ -7,6 +8,7 @@ import lombok.*;
 
 
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequiredArgsConstructor
@@ -32,6 +34,11 @@ public class UserController {
     @PutMapping("/users/{userId}")
     public UsersDto updateUser(@RequestBody UsersDto userDto, @PathVariable Integer userId){
         return service.updateUser(userDto,userId);
+    }
+
+    @PostMapping("/users/{userId}")
+    public UsersDto addRoles(@RequestBody Set<String> roles, @PathVariable Integer userId){
+        return service.addRoles(roles,userId);
     }
 
 

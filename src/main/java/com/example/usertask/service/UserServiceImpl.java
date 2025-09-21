@@ -1,23 +1,28 @@
 package com.example.usertask.service;
 
 import com.example.usertask.dto.UsersDto;
+import com.example.usertask.entity.RolesEntity;
 import com.example.usertask.entity.UsersEntity;
 import com.example.usertask.mapper.UserMapper;
+import com.example.usertask.repository.RolesRepo;
 import com.example.usertask.repository.UsersRepo;
 import org.springframework.stereotype.Service;
 import lombok.*;
-import java.util.List;
+
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
-    private final UsersRepo repo;
+    private final UsersRepo userRepo;
+    private final RolesRepo rolesRepo;
+
     private final UserMapper userMapper;
 
     public List<UsersDto> getAllUsers() {
-        return repo.findAll()
+        return userRepo.findAll()
                 .stream()
                 .map(userMapper::mapToDto)
                 .collect(Collectors.toList());
@@ -25,21 +30,41 @@ public class UserServiceImpl implements UserService {
 
     public UsersDto addUser(UsersDto userDto){
         UsersEntity user=userMapper.mapToUser(userDto);
-        UsersEntity saved=repo.save(user);
+        UsersEntity saved=userRepo.save(user);
         return userMapper.mapToDto(saved);
 
     }
     public UsersDto getUserById(Integer userId) {
-        UsersEntity user= repo.findById(userId).orElseThrow(() -> new RuntimeException("User not found "));
+        UsersEntity user= userRepo.findById(userId).orElseThrow(() -> new RuntimeException("User not found "));
         return userMapper.mapToDto(user);
 
     }
 
     public UsersDto updateUser(UsersDto userDto, Integer userId) {
-        UsersEntity matchedUser = repo.findById(userId).orElseThrow(() -> new RuntimeException("User not found "));
+        UsersEntity matchedUser = userRepo.findById(userId).orElseThrow(() -> new RuntimeException("User not found "));
         userMapper.updateUser(userDto, matchedUser);
-        repo.save(matchedUser);
+        userRepo.save(matchedUser);
         return userMapper.mapToDto(matchedUser);
+
+    }
+
+    public UsersDto addRoles(Set<String> roles, Integer userId) {
+        UsersEntity matchedUser = userRepo.findById(userId).orElseThrow(() -> new RuntimeException("User not found "));
+
+        Set<RolesEntity> newRoles=new HashSet<>();
+
+        for(String roleName:roles){
+            String Normalized = roleName.toLowerCase();
+            RolesEntity role=rolesRepo.findByRole(Normalized).orElseThrow(() -> new IllegalArgumentException("Invalid role: "+roleName));
+            newRoles.add(role);
+        }
+        Set<RolesEntity> prevRoles=matchedUser.getRoles();
+        prevRoles.addAll(newRoles);
+        matchedUser.setRoles(prevRoles);
+
+        userRepo.save((matchedUser));
+        return userMapper.mapToDto(matchedUser);
+
 
     }
 }

@@ -54,8 +54,8 @@ public class UserServiceImpl implements UserService {
         Set<RolesEntity> newRoles=new HashSet<>();
 
         for(String roleName:roles){
-            String Normalized = roleName.toLowerCase();
-            RolesEntity role=rolesRepo.findByRole(Normalized).orElseThrow(() -> new IllegalArgumentException("Invalid role: "+roleName));
+            String normalized = roleName.toLowerCase();
+            RolesEntity role=rolesRepo.findByRole(normalized).orElseThrow(() -> new IllegalArgumentException("Invalid role: "+roleName));
             newRoles.add(role);
         }
         Set<RolesEntity> prevRoles=matchedUser.getRoles();

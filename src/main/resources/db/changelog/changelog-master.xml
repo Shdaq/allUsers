@@ -13,9 +13,4 @@
     <include file="/db/changelog/changes/6-insert-users_roles.sql"/>
     <include file="/db/changelog/changes/7-update-roles-values.sql"/>
 
-
-
-
-
-
 </databaseChangeLog>

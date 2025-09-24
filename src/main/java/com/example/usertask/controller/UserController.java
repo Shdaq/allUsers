@@ -2,7 +2,11 @@ package com.example.usertask.controller;
 
 import com.example.usertask.dto.RolesDto;
 import com.example.usertask.dto.UsersDto;
+import com.example.usertask.exception.InvalidRoleException;
+import com.example.usertask.exception.UserNotFoundException;
 import com.example.usertask.service.UserServiceImpl;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import lombok.*;
 
@@ -40,6 +44,16 @@ public class UserController {
     public UsersDto addRoles(@RequestBody Set<String> roles, @PathVariable Integer userId){
         return service.addRoles(roles,userId);
     }
+
+    @ExceptionHandler(UserNotFoundException.class)
+    public ResponseEntity<String> handleUserNotFound(UserNotFoundException ex) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+    }
+    @ExceptionHandler(InvalidRoleException.class)
+    public ResponseEntity<String> handleInvalidRole(InvalidRoleException ex) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+    }
+
 
 
 

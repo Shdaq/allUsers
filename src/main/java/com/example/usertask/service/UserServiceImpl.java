@@ -3,12 +3,15 @@ package com.example.usertask.service;
 import com.example.usertask.dto.UsersDto;
 import com.example.usertask.entity.RolesEntity;
 import com.example.usertask.entity.UsersEntity;
+import com.example.usertask.exception.InvalidRoleException;
+import com.example.usertask.exception.UserNotFoundException;
 import com.example.usertask.mapper.UserMapper;
 import com.example.usertask.repository.RolesRepo;
 import com.example.usertask.repository.UsersRepo;
 import org.springframework.stereotype.Service;
 import lombok.*;
 
+import java.awt.dnd.InvalidDnDOperationException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -35,13 +38,13 @@ public class UserServiceImpl implements UserService {
 
     }
     public UsersDto getUserById(Integer userId) {
-        UsersEntity user= userRepo.findById(userId).orElseThrow(() -> new RuntimeException("User not found "));
+        UsersEntity user= userRepo.findById(userId).orElseThrow(() ->  new UserNotFoundException("User not found with ID: " + userId));
         return userMapper.mapToDto(user);
 
     }
 
     public UsersDto updateUser(UsersDto userDto, Integer userId) {
-        UsersEntity matchedUser = userRepo.findById(userId).orElseThrow(() -> new RuntimeException("User not found "));
+        UsersEntity matchedUser = userRepo.findById(userId).orElseThrow(() ->  new UserNotFoundException("User not found with ID: " + userId));
         userMapper.updateUser(userDto, matchedUser);
         userRepo.save(matchedUser);
         return userMapper.mapToDto(matchedUser);
@@ -49,20 +52,20 @@ public class UserServiceImpl implements UserService {
     }
 
     public UsersDto addRoles(Set<String> roles, Integer userId) {
-        UsersEntity matchedUser = userRepo.findById(userId).orElseThrow(() -> new RuntimeException("User not found "));
+        UsersEntity matchedUser = userRepo.findById(userId).orElseThrow(() -> new UserNotFoundException("User not found with ID: " + userId));
 
         Set<RolesEntity> newRoles=new HashSet<>();
 
         for(String roleName:roles){
             String normalized = roleName.toLowerCase();
-            RolesEntity role=rolesRepo.findByRole(normalized).orElseThrow(() -> new IllegalArgumentException("Invalid role: "+roleName));
+            RolesEntity role=rolesRepo.findByRole(normalized).orElseThrow(() -> new InvalidRoleException(roleName+ " is not a valid role"));
             newRoles.add(role);
         }
         Set<RolesEntity> prevRoles=matchedUser.getRoles();
         prevRoles.addAll(newRoles);
         matchedUser.setRoles(prevRoles);
 
-        userRepo.save((matchedUser));
+        userRepo.save(matchedUser);
         return userMapper.mapToDto(matchedUser);
 
 

@@ -1,7 +1,7 @@
 package com.example.usertask.dto;
 
 import java.util.*;
-import com.example.usertask.entity.RolesEntity;
+
 import lombok.*;
 
 @Data

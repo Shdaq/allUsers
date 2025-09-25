@@ -1,3 +1,6 @@
+--liquibase formatted sql
+
+--changeset Shahad:1
 
 CREATE TABLE all_users
 (

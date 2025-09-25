@@ -1,6 +1,5 @@
 package com.example.usertask.entity;
 
-
 import jakarta.persistence.*;
 import lombok.*;
 

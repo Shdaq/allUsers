@@ -1,6 +1,7 @@
 package com.example.usertask.entity;
 
 import java.util.*;
+
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -23,13 +24,13 @@ public class UsersEntity {
     @Temporal(TemporalType.DATE)
     private Date dob;
 
-    @ManyToMany(fetch=FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
-            name="users_roles" ,
-            joinColumns = @JoinColumn(name="user_id"),
-            inverseJoinColumns = @JoinColumn(name="role_id")
+            name = "users_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
     )
-   private Set<RolesEntity> roles;
+    private Set<RolesEntity> roles;
 
 }
 

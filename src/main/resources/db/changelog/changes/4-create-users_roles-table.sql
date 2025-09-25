@@ -1,3 +1,7 @@
+--liquibase formatted sql
+
+--changeset Shahad:4
+
 CREATE TABLE users_roles
 (
     user_id SERIAL NOT NULL REFERENCES all_users(user_id),

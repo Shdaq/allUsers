@@ -1,3 +1,6 @@
+--liquibase formatted sql
+
+--changeset Shahad:5
 
 INSERT INTO roles (role) VALUES ('Admin');
 INSERT INTO roles (role) VALUES ('Manager');

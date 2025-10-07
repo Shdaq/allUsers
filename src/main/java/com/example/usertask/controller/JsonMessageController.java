@@ -11,13 +11,14 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class JsonMessageController {
 
-    private JsonKafkaProducer kafkaProducer;
+    private final JsonKafkaProducer kafkaProducer;
 
-    @PostMapping("/publish")
-    public ResponseEntity<String> publish(@RequestParam Student student) {
-        kafkaProducer.send(student);
-        return ResponseEntity.ok("Hson message sent to kafka topic");
 
+    @PostMapping("/sample-message/publish")
+    ResponseEntity<String> publishSample(@RequestBody String message)
+    {
+        kafkaProducer.send(message);
+        return ResponseEntity.ok("Message sent");
 
     }
 }

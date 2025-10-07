@@ -1,5 +1,6 @@
 package com.example.usertask.entity;
 
+import java.time.LocalDate;
 import java.util.*;
 
 import jakarta.persistence.*;
@@ -22,7 +23,7 @@ public class UsersEntity {
     private String lastName;
 
     @Temporal(TemporalType.DATE)
-    private Date dob;
+    private LocalDate dob;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(

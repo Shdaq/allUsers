@@ -1,5 +1,6 @@
 package com.example.usertask.dto;
 
+import java.time.LocalDate;
 import java.util.*;
 
 import lombok.*;
@@ -16,7 +17,7 @@ public class UsersDto {
 
     private String fullName;
 
-    private Date dob;
+    private LocalDate dob;
 
     private Set<String> roles;
 

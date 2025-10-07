@@ -17,13 +17,8 @@ public class JsonKafkaProducer {
 
     private static final Logger LOGGER = LoggerFactory.getLogger((JsonKafkaProducer.class));
 
-    public void send(Student data) {
-        LOGGER.info(String.format("Message sent -> %s", data.toString()));
-        Message<Student> message = MessageBuilder
-                .withPayload(data)
-                .setHeader(KafkaHeaders.TOPIC, "jsonTopic")
-                .build();
-
-        kafkaTemplate.send(message);
+    public void send(String data) {
+        LOGGER.info(String.format("Message sent -> %s", data));
+        kafkaTemplate.send("jsonTopic", data);
     }
 }

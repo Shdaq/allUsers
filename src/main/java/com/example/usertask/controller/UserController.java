@@ -44,6 +44,12 @@ public class UserController {
         return service.addRoles(roles, userId);
     }
 
+    @DeleteMapping ("/users/{userId}")
+    public void deleteUserById(@PathVariable Integer userId){
+        service.deleteUserById(userId);
+
+    }
+
     @ExceptionHandler(UserNotFoundException.class)
     public ResponseEntity<String> handleUserNotFound(UserNotFoundException ex) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());

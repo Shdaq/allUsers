@@ -15,5 +15,5 @@ public interface UserService {
     UsersDto updateUser(UsersDto userDto, Integer userId);
 
     UsersDto addRoles(Set<String> roles, Integer userId);
-
+     void deleteUserById(Integer userId);
 }

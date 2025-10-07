@@ -43,6 +43,11 @@ public class UserServiceImpl implements UserService {
 
     }
 
+    public void deleteUserById(Integer userId) {
+        userRepo.findById(userId).orElseThrow(() -> new UserNotFoundException("User not found with ID: " + userId));
+        userRepo.deleteById(userId);
+    }
+
     public UsersDto updateUser(UsersDto userDto, Integer userId) {
         UsersEntity matchedUser = userRepo.findById(userId).orElseThrow(() -> new UserNotFoundException("User not found with ID: " + userId));
         userMapper.updateUser(userDto, matchedUser);
@@ -70,4 +75,6 @@ public class UserServiceImpl implements UserService {
 
 
     }
+
+
 }
